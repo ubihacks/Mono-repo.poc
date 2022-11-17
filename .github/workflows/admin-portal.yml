@@ -26,10 +26,11 @@ jobs:
     - name: Set up Node.js version
       uses: actions/setup-node@v1
       with:
-          node-version: '12.x'
+          node-version: 16
+          cache: 'npm'
 
-    - name: build root
-      run: |
-          npm install
-          npm run build --if-present
-
+    - name: Install dependencies
+      run: npm install
+ 
+    - name: Build
+      run: npm run build
