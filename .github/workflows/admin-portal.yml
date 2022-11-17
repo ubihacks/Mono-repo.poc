@@ -5,9 +5,15 @@
 name: Turbo Admin CI
 
 on:
+  
   push:
-    paths:
-      - 'apps/admin-portal/**'
+    branches: [ "main" ]
+    paths: ['apps/admin-portal/**']
+  
+  pull_request:
+    branches: [ "main" ]
+    paths: ['apps/admin-portal/**']
+
 
 jobs:
   build:

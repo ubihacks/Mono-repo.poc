@@ -5,9 +5,15 @@
 name: Turbo User CI
 
 on:
+  
   push:
-    paths:
-      - 'apps/user-portal/**'
+    branches: [ "main" ]
+    paths: ['apps/user-portal/**']
+  
+  pull_request:
+    branches: [ "main" ]
+    paths: ['apps/user-portal/**']
+      
 
 jobs:
   build:
