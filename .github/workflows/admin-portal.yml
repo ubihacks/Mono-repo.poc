@@ -19,7 +19,22 @@ jobs:
   build:
     name: Build Admin portal
     runs-on: ubuntu-latest
-    steps:
-    - name: Admin portal Build
-      run: echo "Admin portal"
     
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Node.js version
+      uses: actions/setup-node@v1
+      with:
+          node-version: '12.x'
+
+    - name: build root
+      run: |
+          npm install
+          npm run build --if-present
+
+    - name: Upload artifact for deployment job
+      uses: actions/upload-artifact@v2
+      with:
+          name: admin-portal
+          path: app/admin-portal
