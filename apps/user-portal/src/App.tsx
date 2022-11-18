@@ -7,7 +7,7 @@ function App() {
   return (
     
     <Box maxW='sm' borderWidth='1px' borderRadius='lg' >
-    <Heading>User Portal </Heading>
+    <Heading>User Portal</Heading>
     <Text>Turbo POC wiht Chakra Ui user action</Text>
     </Box>
     
