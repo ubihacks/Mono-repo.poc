@@ -39,7 +39,7 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
           name: admin-portal
-          path: . 
+          path: apps/admin-portal/dist 
 
 
   deploy:
@@ -56,8 +56,8 @@ jobs:
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
-          app-name: 'mr-user'
+          app-name: 'admin-portal'
           # slot-name: 'Production'
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-          package: apps/admin-portal/dist
+          package: .
   
