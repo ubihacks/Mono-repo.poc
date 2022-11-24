@@ -2,7 +2,7 @@
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
       
 
-name: Turbo Admin CI
+name: Admin CI
 
 on:
   
@@ -14,6 +14,9 @@ on:
     branches: [ "main" ]
     paths: ['apps/admin-portal/**']
 
+  # Allow to run workflow manully
+  workflow_dispatch:
+       
 
 jobs:
   build:

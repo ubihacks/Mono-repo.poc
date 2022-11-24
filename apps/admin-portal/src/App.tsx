@@ -1,5 +1,5 @@
 import './App.css'
-import { Box, Heading, Text, } from '@chakra-ui/react'
+import { Box, Button, Heading, Text, } from '@chakra-ui/react'
 
 
 function App() {
@@ -9,6 +9,10 @@ function App() {
       <Box maxW='sm' borderWidth='1px' borderRadius='lg' >
       <Heading>Admin Portal</Heading>
       <Text>Turbo POC wiht Chakra Ui Admin test one   </Text>
+
+      <Button borderRadius="full" variant="gradient-purple">
+							Create Workspace
+						</Button>
       </Box>
     
 
