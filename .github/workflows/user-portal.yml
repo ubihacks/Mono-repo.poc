@@ -9,11 +9,11 @@ env:
 on:
   push:
     branches: ["main"]
-    paths: ["apps/${{ env.WEBAPP_NAME }}/**"]
+    paths: ["apps/user-portal/**"]
 
   pull_request:
     branches: ["main"]
-    paths: ["apps/${{ env.WEBAPP_NAME }}/**"]
+    paths: ["apps/user-portal/**"]
 
   # Allow to run workflow manully
   workflow_dispatch:
