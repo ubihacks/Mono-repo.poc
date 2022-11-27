@@ -1,73 +1,79 @@
 name: User CI
 
+env:
+  WEBAPP_NAME: user-portal # set application's name
+  AZURE_WEBAPP_NAME:  poc-mono-user-portal # set azure app name
+  AZURE_WEBAPP_PACKAGE_PATH: "." # set path to your web app project
+  NODE_VERSION: "16"
+
 on:
-  
   push:
-    branches: [ "main" ]
-    paths: ['apps/user-portal/**']
-  
+    branches: ["main"]
+    paths: ["apps/${{ env.WEBAPP_NAME }}/**"]
+
   pull_request:
-    branches: [ "main" ]
-    paths: ['apps/user-portal/**']
+    branches: ["main"]
+    paths: ["apps/${{ env.WEBAPP_NAME }}/**"]
 
   # Allow to run workflow manully
   workflow_dispatch:
-       
+
 jobs:
   build:
     name: Build User portal
     runs-on: ubuntu-latest
-    
+
     steps:
-    - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
-    - name: Set up Node.js version
-      uses: actions/setup-node@v1
-      with:
-          node-version: 16
-          cache: 'npm'
+      - name: Set up Node.js version
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: "npm"
 
-    - name: Install dependencies
-      run: npm install
- 
-    - name: Build
-      run: npm run build
+      - name: Install dependencies
+        run: npm install
 
-    - name: Upload artifact for deployment job
-      uses: actions/upload-artifact@v2
-      with:
-          name: user-portal
-          path: apps/user-portal/dist 
+      - name: Build
+        run: npm run build
 
+      - name: Upload artifact for deployment job
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{ env.WEBAPP_NAME }}
+          path: apps/${{ env.WEBAPP_NAME }}/dist
 
   staging:
     name: staging
     runs-on: ubuntu-latest
     needs: build
     environment:
-     name: staging
+      name: staging
+      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
     steps:
       - name: Download artifact from build job
         uses: actions/download-artifact@v2
         with:
-          name: user-portal
+          name: ${{ env.WEBAPP_NAME }}
 
-      - name: 'Deploy to Azure Web App'
+      - name: "Deploy to Azure Web App"
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
-          app-name: 'mr-user'
-          # slot-name: 'Production'
-          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+          app-name: ${{ env.AZURE_WEBAPP_NAME }}
+          publish-profile: ${{ secrets.AZURE_STAGING_POC_USER_PORTAL }}
           package: .
+          startup-command: pm2 serve /home/site/wwwroot --no-daemon --spa
 
   prod:
     name: Production
     runs-on: ubuntu-latest
     needs: staging
     environment:
-     name: Production
+      name: Production
+      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
     steps:
       - name: Download artifact from build job
@@ -75,12 +81,12 @@ jobs:
         with:
           name: user-portal
 
-      - name: 'Deploy to Azure Web App'
+      - name: "Deploy to Azure Web App"
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
-          app-name: 'mr-user'
+          app-name: ${{ env.WEBAPP_NAME }}
+          startup-command: pm2 serve /home/site/wwwroot --no-daemon --spa
           # slot-name: 'Production'
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-          package: .        
-  
+          package: .
