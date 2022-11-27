@@ -65,7 +65,7 @@ jobs:
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
           publish-profile: ${{ secrets.AZURE_STAGING_POC_USER_PORTAL }}
           package: .
-          # startup-command: pm2 serve /home/site/wwwroot --no-daemon --spa
+          startup-command: "pm2 serve /home/site/wwwroot --no-daemon --spa"
 
   prod:
     name: Production
