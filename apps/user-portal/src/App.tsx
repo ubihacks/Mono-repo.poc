@@ -12,7 +12,7 @@ function App() {
         <ColorModeSwitcher />
 
         <Heading>User Portal</Heading>
-      <Text>Turbo POC wiht Chakra Ui User test one   </Text>
+      <Text>Turbo POC wiht Chakra Ui User test 323  </Text>
 
      
       </Stack>
