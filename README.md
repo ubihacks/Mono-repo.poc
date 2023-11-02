@@ -1,16 +1,17 @@
-# Turborepo starter
+# Mono-Repo POC
 
-This is an official npm starter turborepo.
+Welcome to the Mono-Repo POC, an POC for managing a monorepo with multiple applications and packages. I use TurboRepo, it's a powerful tool for organizing and building multiple projects in a single place. In this starter, we have two projects: 'user-portal' and 'admin-portal,' both sharing a Chakra UI design system.
 
 ## What's inside?
 
-This turborepo uses [npm](https://www.npmjs.com/) as a package manager. It includes the following packages/apps:
+This TurboRepo setup uses npm as the package manager and is 100% TypeScript. 
+It includes the following packages/apps:
 
 ### Apps and Packages
 
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `ui`: a stub React component library shared by both `web` and `docs` applications
+- `admin-portal`: Admin portal app
+- `user-portal`:  User portal app
+- `ui`: a stub React component library shared by both `admin-portal` and `user-portal` applications
 - `eslint-config-custom`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
 - `tsconfig`: `tsconfig.json`s used throughout the monorepo
 
